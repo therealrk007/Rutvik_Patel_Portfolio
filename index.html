@@ -203,53 +203,52 @@ body::-webkit-scrollbar{
 						<br>
 						<h3 id="experienceText" class="d-flex" style="margin-bottom: 0"></h3>
 
+<h3 id="experienceText" class="d-flex" style="margin-bottom: 0"></h3>
+
 <script>
-  // Set your job start date here (YYYY, MM - 1, DD, HH, MM, SS)
-  const startDate = new Date(2023, 3, 1, 0, 0, 0); // May 1, 2024
+  // Set your job start date (Year, Month - 1, Day)
+  const startDate = new Date(2023, 3, 1); // March 1, 2023
 
   function updateExperience() {
     const now = new Date();
-    let diff = now - startDate;
+    const diffMs = now - startDate;
 
-    // Convert milliseconds
-    let seconds = Math.floor(diff / 1000);
-    let minutes = Math.floor(seconds / 60);
-    let hours = Math.floor(minutes / 60);
-    let days = Math.floor(hours / 24);
+    // Total units
+    const totalSeconds = Math.floor(diffMs / 1000);
+    const totalMinutes = Math.floor(totalSeconds / 60);
+    const totalHours = Math.floor(totalMinutes / 60);
 
-    // Extract parts
-    seconds %= 60;
-    minutes %= 60;
-    hours %= 24;
+    // Breakdown for years, months, and days
+    let tempDate = new Date(startDate.getTime());
+    let years = now.getFullYear() - tempDate.getFullYear();
+    let months = now.getMonth() - tempDate.getMonth();
 
-    // Calculate total months and years from dates
-    let totalMonths = (now.getFullYear() - startDate.getFullYear()) * 12 + (now.getMonth() - startDate.getMonth());
-    if (now.getDate() < startDate.getDate()) {
-      totalMonths--;
+    if (months < 0) {
+      years--;
+      months += 12;
     }
-    let years = Math.floor(totalMonths / 12);
-    let months = totalMonths % 12;
 
-    let remainingDays = Math.floor((now - new Date(now.getFullYear(), now.getMonth() - months, startDate.getDate())) / (1000 * 60 * 60 * 24));
-    if (remainingDays < 0) remainingDays = 0;
+    tempDate.setFullYear(tempDate.getFullYear() + years);
+    tempDate.setMonth(tempDate.getMonth() + months);
 
-    // Format string
-    let experience = "With ";
-    if (years > 0) experience += `${years} Year${years > 1 ? "s" : ""} `;
-    if (months > 0) experience += `${months} Month${months > 1 ? "s" : ""} `;
-    if (remainingDays > 0) experience += `${remainingDays} Day${remainingDays > 1 ? "s" : ""} `;
-    experience += `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')} of experience`;
+    let days = Math.floor((now - tempDate) / (1000 * 60 * 60 * 24));
 
-    // Update HTML
+    // Format final string
+    const experience = `With ${years} Year${years !== 1 ? 's' : ''} `
+      + `${months} Month${months !== 1 ? 's' : ''} `
+      + `${days} Day${days !== 1 ? 's' : ''}, total `
+      + `${totalHours} Hour${totalHours !== 1 ? 's' : ''}, `
+      + `${totalMinutes} Minute${totalMinutes !== 1 ? 's' : ''}, and `
+      + `${totalSeconds} Second${totalSeconds !== 1 ? 's' : ''}`;
+
+    // Inject into HTML
     document.getElementById("experienceText").textContent = experience;
   }
 
-  // Initial call
-  updateExperience();
-
-  // Update every second
-  setInterval(updateExperience, 1000);
+  updateExperience(); // initial call
+  setInterval(updateExperience, 1000); // refresh every second
 </script>
+
 						<!--<h3 class="d-flex" style="margin-bottom: 0">With 1 Years 1 Month of experience</h3> -->
 						<br>
 			            <p><a href="Rutvik_Resume/Rutvik Patel_Resume_2025.pdf" class="btn btn-primary py-3 px-4" target="_blank">Download Resume</a> 
