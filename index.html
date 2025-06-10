@@ -200,10 +200,33 @@ body::-webkit-scrollbar{
 						</script>
 
 						<br>
-						<br>
+						<h3 id="experienceText" class="d-flex" style="margin-bottom: 0"></h3>
+
+<script>
+  // Set your job start date here (YYYY, MM - 1, DD) => May 1, 2024
+  const startDate = new Date(2023, 3, 1); // Month is 0-indexed (4 = May)
+  const now = new Date();
+
+  let totalMonths = (now.getFullYear() - startDate.getFullYear()) * 12 + (now.getMonth() - startDate.getMonth());
+
+  let years = Math.floor(totalMonths / 12);
+  let months = totalMonths % 12;
+
+  // Format experience string
+  let experience = "With ";
+  if (years > 0) experience += years + " Year" + (years > 1 ? "s" : "") + " ";
+  if (months > 0) experience += months + " Month" + (months > 1 ? "s" : "");
+  if (years === 0 && months === 0) experience += "less than a month";
+  experience += " of experience";
+
+  // Inject into HTML
+  document.getElementById("experienceText").textContent = experience;
+</script>
+
+						<!-- <br>
 			           	<h3>A Web Developer  &amp; Software Suppot Engineer</h3>
 						<br>
-						<h3 class="d-flex" style="margin-bottom: 0">With 1 Years 1 Month of experience</h3>
+						<h3 class="d-flex" style="margin-bottom: 0">With 1 Years 1 Month of experience</h3> -->
 						<br>
 			            <p><a href="Rutvik_Resume/Rutvik Patel_Resume_2025.pdf" class="btn btn-primary py-3 px-4" target="_blank">Download Resume</a> 
 							<a href="https://github.com/therealrk007" class="btn btn-white btn-outline-white py-3 px-4" target="_blank">My works</a></p>
