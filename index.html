@@ -204,24 +204,51 @@ body::-webkit-scrollbar{
 						<h3 id="experienceText" class="d-flex" style="margin-bottom: 0"></h3>
 
 <script>
-  // Set your job start date here (YYYY, MM - 1, DD) => May 1, 2024
-  const startDate = new Date(2023, 3, 1); // Month is 0-indexed (3 = March)
-  const now = new Date();
+  // Set your job start date here (YYYY, MM - 1, DD, HH, MM, SS)
+  const startDate = new Date(2023, 3, 1, 0, 0, 0); // May 1, 2024
 
-  let totalMonths = (now.getFullYear() - startDate.getFullYear()) * 12 + (now.getMonth() - startDate.getMonth());
+  function updateExperience() {
+    const now = new Date();
+    let diff = now - startDate;
 
-  let years = Math.floor(totalMonths / 12);
-  let months = totalMonths % 12;
+    // Convert milliseconds
+    let seconds = Math.floor(diff / 1000);
+    let minutes = Math.floor(seconds / 60);
+    let hours = Math.floor(minutes / 60);
+    let days = Math.floor(hours / 24);
 
-  // Format experience string
-  let experience = "With ";
-  if (years > 0) experience += years + " Year" + (years > 1 ? "s" : "") + " ";
-  if (months > 0) experience += months + " Month" + (months > 1 ? "s" : "");
-  if (years === 0 && months === 0) experience += "less than a month";
-  experience += " of Experience";
+    // Extract parts
+    seconds %= 60;
+    minutes %= 60;
+    hours %= 24;
 
-  // Inject into HTML
-  document.getElementById("experienceText").textContent = experience;
+    // Calculate total months and years from dates
+    let totalMonths = (now.getFullYear() - startDate.getFullYear()) * 12 + (now.getMonth() - startDate.getMonth());
+    if (now.getDate() < startDate.getDate()) {
+      totalMonths--;
+    }
+    let years = Math.floor(totalMonths / 12);
+    let months = totalMonths % 12;
+
+    let remainingDays = Math.floor((now - new Date(now.getFullYear(), now.getMonth() - months, startDate.getDate())) / (1000 * 60 * 60 * 24));
+    if (remainingDays < 0) remainingDays = 0;
+
+    // Format string
+    let experience = "With ";
+    if (years > 0) experience += `${years} Year${years > 1 ? "s" : ""} `;
+    if (months > 0) experience += `${months} Month${months > 1 ? "s" : ""} `;
+    if (remainingDays > 0) experience += `${remainingDays} Day${remainingDays > 1 ? "s" : ""} `;
+    experience += `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')} of experience`;
+
+    // Update HTML
+    document.getElementById("experienceText").textContent = experience;
+  }
+
+  // Initial call
+  updateExperience();
+
+  // Update every second
+  setInterval(updateExperience, 1000);
 </script>
 						<!--<h3 class="d-flex" style="margin-bottom: 0">With 1 Years 1 Month of experience</h3> -->
 						<br>
