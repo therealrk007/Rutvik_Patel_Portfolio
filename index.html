@@ -235,10 +235,10 @@ body::-webkit-scrollbar{
     // Format final string
     const experience = `With ${years} Year${years !== 1 ? 's' : ''} `
       + `${months} Month${months !== 1 ? 's' : ''} `
-      + `${days} Day${days !== 1 ? 's' : ''}, total `
-      + `${totalHours} Hour${totalHours !== 1 ? 's' : ''}, `
-      + `${totalMinutes} Minute${totalMinutes !== 1 ? 's' : ''}, and `
-      + `${totalSeconds} Second${totalSeconds !== 1 ? 's' : ''}`;
+      + `${days} Day${days !== 1 ? 's' : ''}`
+    //   + `${totalHours} Hour${totalHours !== 1 ? 's' : ''}, `
+    //   + `${totalMinutes} Minute${totalMinutes !== 1 ? 's' : ''}, and `
+    //   + `${totalSeconds} Second${totalSeconds !== 1 ? 's' : ''}`;
 
     // Inject into HTML
     document.getElementById("experienceText").textContent = experience;
