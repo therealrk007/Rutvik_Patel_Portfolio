@@ -111,18 +111,7 @@ body::-webkit-scrollbar{
     width: 0;
   }
 }
-.loader {
-  width: 120px;
-  height: 20px;
-  border-radius: 20px;
-  background:
-   linear-gradient(orange 0 0) 0/0% no-repeat
-   lightblue;
-  animation: l2 2s infinite steps(10);
-}
-@keyframes l2 {
-    100% {background-size:110%}
-}
+
 
 /* project image zoom effect */
 
@@ -136,7 +125,6 @@ body::-webkit-scrollbar{
 }
 </style>
   </head>
-  <div class="loader"></div> 
   <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300"> 
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
 	    <div class="container">
@@ -683,10 +671,13 @@ body::-webkit-scrollbar{
 	  </footer>
 
 
-	   
-
   <!-- loader -->
-  
+  <div id="ftco-loader" class="show fullscreen">
+	<svg class="circular" width="48px" height="48px">
+		<circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
+		<circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/>
+	</svg>
+</div>
   <script src="js/jquery.min.js"></script>
   <script src="js/jquery-migrate-3.0.1.min.js"></script>
   <script src="js/popper.min.js"></script>
